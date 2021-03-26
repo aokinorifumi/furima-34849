@@ -19,6 +19,7 @@
 
 - has_many :items
 - has_many :sales
+- has_many :histories
 
 
 
@@ -41,6 +42,7 @@
 ### Association
 
 - has_one :sales
+- has_one :histories
 - belongs_to :users
 
 
@@ -49,10 +51,6 @@
 
 | Column           | Type          | Options     |
 | ---------------- | ------------- | ----------- |
-| card_number      | string        | null: false |
-| card_limit_month | string        | null: false |
-| card_limit_year  | string        | null: false |
-| security_cord    | string        | null: false |
 | postal_cord      | string        | null: false |
 | prefectures      | string        | null: false |
 | area             | string        | null: false |
@@ -62,8 +60,22 @@
 | user_id          | references    |             |
 
 
+### Association
+
+- belongs_to :users
+- belongs_to :items
+
+
+　
+## histories テーブル
+
+| Column     | Type       | Options     |
+| ---------- | ---------- | ----------- |
+| user_id    | references |             |
+| item_id    | references |             |
+
 
 ### Association
 
 - belongs_to :users
-- belongs_to :sales
+- belongs_to :items
