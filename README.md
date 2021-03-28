@@ -2,16 +2,16 @@
 
 ## users テーブル
 
-| Column              | Type   | Options     |
-| ------------------- | ------ | ----------- |
-| nickname            | string | null: false |
-| email               | string | null: false |
-| encrypted_password  | string | null: false |
-| name_first_zen      | string | null: false |
-| name_family_zen     | string | null: false |
-| name_first_kana     | string | null: false |
-| name_family_kana    | string | null: false |
-| birth               | date   | null: false |
+| Column              | Type   | Options                   |
+| ------------------- | ------ | ------------------------- |
+| nickname            | string | null: false               |
+| email               | string | null: false, unique: true |
+| encrypted_password  | string | null: false               |
+| name_first_zen      | string | null: false               |
+| name_family_zen     | string | null: false               |
+| name_first_kana     | string | null: false               |
+| name_family_kana    | string | null: false               |
+| birth               | date   | null: false               |
 
 
 ### Association
@@ -23,17 +23,17 @@
 
 ## items テーブル
 
-| Column         | Type          | Options                        |
-| -------------- | ------------- | ------------------------------ |
-| name           | string        | null: false                    |
-| text           | text          | null: false                    |
-| category_id    | integer       | null: false                    |
-| status_id      | integer       | null: false                    |
-| burden_id      | integer       | null: false                    |
-| prefectures_id | integer       | null: false                    |
-| days_id        | integer       | null: false                    |
-| price          | integer       | null: false                    |
-| user           | references    | null: false, foreign_key: true |
+| Column          | Type          | Options                        |
+| --------------- | ------------- | ------------------------------ |
+| name            | string        | null: false                    |
+| text            | text          | null: false                    |
+| category_id     | integer       | null: false                    |
+| status_id       | integer       | null: false                    |
+| burden_id       | integer       | null: false                    |
+| prefecture_id   | integer       | null: false                    |
+| delivery_day_id | integer       | null: false                    |
+| price           | integer       | null: false                    |
+| user            | references    | null: false, foreign_key: true |
 
 
 ### Association
@@ -48,7 +48,7 @@
 | Column           | Type          | Options                        |
 | ---------------- | ------------- | ------------------------------ |
 | postal_cord      | string        | null: false                    |
-| prefectures_id   | integer       | null: false                    |
+| prefecture_id    | integer       | null: false                    |
 | area             | string        | null: false                    |
 | address          | string        | null: false                    |
 | building_name    | string        |                                |
@@ -72,4 +72,7 @@
 
 ### Association
 
-- has_one :sales
+- has_one :street
+- belongs_to :user
+- belongs_to :item
+
