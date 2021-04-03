@@ -37,10 +37,22 @@ RSpec.describe User, type: :model do
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
 
+      it 'カテゴリーが1以外(---)でないと登録できる(カテゴリーが1(---)だと登録出来ない)' do
+        @item.category_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Category must be other than 1')
+      end
+
       it '商品の状態についての情報が必須であること(商品の状態についての情報がないと登録出来ない)' do
         @item.status_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Status can't be blank")
+      end
+
+      it '商品の状態が1以外(---)でないと登録できる(商品の状態が1(---)だと登録出来ない)' do
+        @item.status_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Status must be other than 1')
       end
 
       it '配送料の負担についての情報が必須であること(配送料の負担についての情報がないと登録出来ない)' do
@@ -49,16 +61,34 @@ RSpec.describe User, type: :model do
         expect(@item.errors.full_messages).to include("Burden can't be blank")
       end
 
+      it '配送料の負担が1以外(---)でないと登録できる(配送料の負担が1(---)だと登録出来ない)' do
+        @item.burden_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Burden must be other than 1')
+      end
+
       it '発送元の地域についての情報が必須であること(発送元の地域についての情報がないと登録出来ない)' do
         @item.prefecture_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
       end
 
+      it '発送元の地域が1以外(---)でないと登録できる(発送元の地域が1(---)だと登録出来ない)' do
+        @item.prefecture_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Prefecture must be other than 1')
+      end
+
       it '発送までの日数についての情報が必須であること(発送までの日数についての情報がないと登録出来ない)' do
         @item.delivery_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Delivery can't be blank")
+      end
+
+      it '発送までの日数が1以外(---)でないと登録できる(発送までの日数が1(---)だと登録出来ない)' do
+        @item.delivery_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Delivery must be other than 1')
       end
 
       it '販売価格についての情報が必須であること(販売価格についての情報がないと登録出来ない)' do
@@ -68,13 +98,13 @@ RSpec.describe User, type: :model do
       end
 
       it '販売価格は、¥300~¥9,999,999の間のみ保存可能であること(¥299以下の場合登録出来ない)' do
-        @item.price = '299'
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
 
       it '販売価格は、¥300~¥9,999,999の間のみ保存可能であること(¥10,000,000以上の場合登録出来ない)' do
-        @item.price = '10000000'
+        @item.price = 10_000_000
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
@@ -87,6 +117,18 @@ RSpec.describe User, type: :model do
 
       it '販売価格は半角数字のみ保存可能であること(半角カナでは登録出来ない)' do
         @item.price = 'ﾆｾﾝ'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+
+      it '販売価格は半角数字のみ保存可能であること(半角英語だけでは登録出来ない)' do
+        @item.price = 'abcde'
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Price is not a number')
+      end
+
+      it '販売価格は半角数字のみ保存可能であること(半角英数混合では登録出来ない)' do
+        @item.price = 'a1b2c3'
         @item.valid?
         expect(@item.errors.full_messages).to include('Price is not a number')
       end
