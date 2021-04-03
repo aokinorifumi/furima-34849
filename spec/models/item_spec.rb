@@ -38,7 +38,7 @@ RSpec.describe User, type: :model do
       end
 
       it 'カテゴリーが1以外(---)でないと登録できる(カテゴリーが1(---)だと登録出来ない)' do
-        @item.category_id = '1'
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Category must be other than 1')
       end
@@ -50,7 +50,7 @@ RSpec.describe User, type: :model do
       end
 
       it '商品の状態が1以外(---)でないと登録できる(商品の状態が1(---)だと登録出来ない)' do
-        @item.status_id = '1'
+        @item.status_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Status must be other than 1')
       end
@@ -62,7 +62,7 @@ RSpec.describe User, type: :model do
       end
 
       it '配送料の負担が1以外(---)でないと登録できる(配送料の負担が1(---)だと登録出来ない)' do
-        @item.burden_id = '1'
+        @item.burden_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Burden must be other than 1')
       end
@@ -74,7 +74,7 @@ RSpec.describe User, type: :model do
       end
 
       it '発送元の地域が1以外(---)でないと登録できる(発送元の地域が1(---)だと登録出来ない)' do
-        @item.prefecture_id = '1'
+        @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Prefecture must be other than 1')
       end
@@ -86,7 +86,7 @@ RSpec.describe User, type: :model do
       end
 
       it '発送までの日数が1以外(---)でないと登録できる(発送までの日数が1(---)だと登録出来ない)' do
-        @item.delivery_id = '1'
+        @item.delivery_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include('Delivery must be other than 1')
       end
