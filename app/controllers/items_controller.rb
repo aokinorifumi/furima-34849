@@ -24,6 +24,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
+
   end
 
   def update
@@ -54,6 +55,6 @@ class ItemsController < ApplicationController
   end
 
   def user_commit
-    redirect_to root_path unless current_user == @item.user
+    redirect_to root_path unless current_user == @item.user && !@item.sale.present?
   end
 end
