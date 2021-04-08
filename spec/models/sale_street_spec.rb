@@ -54,6 +54,12 @@ RSpec.describe SaleStreet, type: :model do
       expect(@sale_street.errors.full_messages).to include("Phone number can't be blank")
     end
 
+    it "電話番号が12桁以上だと登録出来ない" do
+      @sale_street.phone_number = "012345678901"
+      @sale_street.valid?
+      expect(@sale_street.errors.full_messages).to include("Phone number too long")
+    end
+
     it "tokenが空では登録できないこと" do
       @sale_street.token = nil
       @sale_street.valid?
