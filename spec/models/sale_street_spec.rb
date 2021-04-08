@@ -30,6 +30,12 @@ RSpec.describe SaleStreet, type: :model do
       expect(@sale_street.errors.full_messages).to include("Postal cord is invalid. Include hyphen(-)")
     end
 
+    it "郵便番号が`4文字ー3文字`だった場合登録できない" do
+      @sale_street.postal_cord = 0000-000
+      @sale_street.valid?
+      expect(@sale_street.errors.full_messages).to include("Postal cord is invalid. Include hyphen(-)")
+    end
+
     it "都道府県が選ばれていないと登録出来ない" do
       @sale_street.prefecture_id = nil
       @sale_street.valid?
@@ -58,6 +64,12 @@ RSpec.describe SaleStreet, type: :model do
       @sale_street.phone_number = "012345678901"
       @sale_street.valid?
       expect(@sale_street.errors.full_messages).to include("Phone number too long")
+    end
+
+    it "電話番号にハイフンがあると登録出来ない" do
+      @sale_street.phone_number = "000-000-000"
+      @sale_street.valid?
+      expect(@sale_street.errors.full_messages).to include("Phone number is invalid")
     end
 
     it "tokenが空では登録できないこと" do
