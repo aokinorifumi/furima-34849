@@ -15,8 +15,6 @@ class SaleStreet
 
   def save
     sale = Sale.create(item_id: item_id, user_id: user_id)
-    # 住所を保存する
-    # donation_idには、変数donationのidと指定する
     Street.create(postal_cord: postal_cord, prefecture_id: prefecture_id, area: area, address: address, building_name: building_name, phone_number: phone_number, sale_id: sale.id)
   end
 end
